@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reproductor/Business_logic/Provaiders/media_provider.dart';
 
 import 'package:reproductor/Business_logic/Provaiders/song_provider.dart';
 import 'package:reproductor/UI/Widgets/custom_drawer.dart';
+import 'package:reproductor/UI/Widgets/mini_reproductor.dart';
 
 import '../../Constants/contants.dart';
 import '../Widgets/album_grid.dart';
@@ -25,21 +27,33 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final playerProvider = context.read<MediaProvider>();
     return Scaffold(
       drawer: const CustomDrawer(),
       backgroundColor: kprimarycolor,
       body: SafeArea(
         child: Column(
-          children: const [
-            CustomAppBar(),
-            MenuNavegacionIconos(
+          children: [
+            const CustomAppBar(),
+            const MenuNavegacionIconos(
               icon1: Icons.create_new_folder_outlined,
               icon2: Icons.delete,
               icon3: Icons.file_download_outlined,
               icon4: Icons.list_alt,
             ),
-            SizedBox(height: 20),
-            AlbumGrid(),
+            const SizedBox(height: 20),
+            const AlbumGrid(),
+            StreamBuilder<Duration>(
+                stream: playerProvider.player!.positionStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data! > const Duration(milliseconds: 1)) {
+                      return MiniReproductor(playerProvider: playerProvider);
+                    }
+                  }
+
+                  return Container();
+                }),
           ],
         ),
       ),

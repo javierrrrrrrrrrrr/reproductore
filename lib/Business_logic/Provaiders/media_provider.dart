@@ -3,6 +3,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MediaProvider extends ChangeNotifier {
+  bool play = false;
   AudioPlayer? player;
   List<AudioSource> audioSource = [];
   SongModel? currentSong;
@@ -42,4 +43,10 @@ class MediaProvider extends ChangeNotifier {
     });
     return currentSong;
   }
+
+//   Changevalue(bool val) {
+//     play = val;
+//     notifyListeners();
+//     return play;
+//   }
 }

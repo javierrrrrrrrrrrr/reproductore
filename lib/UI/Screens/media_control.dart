@@ -9,6 +9,7 @@ import 'package:reproductor/Constants/contants.dart';
 import 'package:reproductor/UI/Widgets/simple_appbar.dart';
 
 import '../Widgets/custom_drawer.dart';
+import '../Widgets/stream_artist.dart';
 
 class MediaControl extends StatefulWidget {
   const MediaControl({Key? key}) : super(key: key);
@@ -26,57 +27,42 @@ class _MediaControlState extends State<MediaControl> {
     return Scaffold(
       drawer: const CustomDrawer(),
       backgroundColor: kprimarycolor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: SimpleAppbar(),
-              ),
-              const SongImgContainer(),
-              StreamBuilder<int?>(
-                  stream: playerProvider.player!.currentIndexStream,
-                  builder: (context, snapshot) {
-                    return Center(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        playerProvider.currentSong!.artist!,
-                        style: const TextStyle(
-                            color: Color(0xffBDA7B7),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    );
-                  }),
-              const SizedBox(height: 18),
-              StreamBuilder<int?>(
-                  stream: playerProvider.player!.currentIndexStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ScrollingTitle(playerProvider, useRtlText);
-                    }
-                    if (snapshot.data == null) {
-                      return const CircularProgressIndicator();
-                    }
-                    return Container();
-                  }),
-              const SizedBox(height: 40),
-              CustomProgressBar(playerProvider: playerProvider),
-              const SizedBox(height: 15),
-              const BellowProgressBar(),
-              const SizedBox(height: 35),
-              MediaComandsButton(playerProvider: playerProvider)
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: SimpleAppbar(),
+            ),
+            const SongImgContainer(),
+            StreamArtist(playerProvider: playerProvider),
+            const SizedBox(height: 18),
+            StreamBuilder<int?>(
+                stream: playerProvider.player!.currentIndexStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ScrollingTitle(playerProvider);
+                  }
+                  if (snapshot.data == null) {
+                    return const CircularProgressIndicator();
+                  }
+                  return Container();
+                }),
+            const SizedBox(height: 30),
+            CustomProgressBar(playerProvider: playerProvider),
+            const SizedBox(height: 15),
+            const BellowProgressBar(),
+            const SizedBox(height: 30),
+            MediaComandsButton(playerProvider: playerProvider)
+          ],
         ),
       ),
     );
   }
 
-  Center ScrollingTitle(MediaProvider playerProvider, bool useRtlText) {
+  Center ScrollingTitle(MediaProvider playerProvider) {
     return Center(
       child: SizedBox(
         height: 30,
@@ -97,15 +83,6 @@ class _MediaControlState extends State<MediaControl> {
           accelerationCurve: Curves.linear,
           decelerationDuration: const Duration(milliseconds: 500),
           decelerationCurve: Curves.easeOut,
-          textDirection: useRtlText ? TextDirection.rtl : TextDirection.ltr,
-
-          // child: Text(
-          //   maxLines: 1,
-          //   textAlign: TextAlign.center,
-          //   playerProvider.currentSong!.title,
-          //   style: const TextStyle(
-          //       color: Color(0xffBDA7B7), fontSize: 25),
-          // ),
         ),
       ),
     );
@@ -316,8 +293,8 @@ class _PlayButtonState extends State<PlayButton> {
           )
         : GestureDetector(
             onTap: () async {
-              widget.playerProvider.player!.play();
               setState(() {});
+              widget.playerProvider.player!.play();
             },
             child: const Icon(
               Icons.play_circle_outline,
