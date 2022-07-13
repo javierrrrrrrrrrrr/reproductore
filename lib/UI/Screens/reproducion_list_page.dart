@@ -71,19 +71,6 @@ class _ReproductionListState extends State<ReproductionList> {
                   }),
             ],
           ),
-
-          // Builder(builder: (BuildContext context) {
-          //   if (playerProvider.player!.playing == true) {
-          //     return MiniReproductor(playerProvider: playerProvider).;
-          //   } else {
-          //     return Container();
-          //   }
-          //   //  setState(() {});
-          // })
-
-          // playerProvider.player!.playing == true
-          //     ? MiniReproductor(playerProvider: playerProvider)
-          //     : Container()
         ],
       )),
     );
