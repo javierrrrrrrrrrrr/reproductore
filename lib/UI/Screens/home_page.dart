@@ -10,6 +10,7 @@ import '../../Constants/contants.dart';
 import '../Widgets/album_grid.dart';
 import '../Widgets/custom_appbar.dart';
 import '../Widgets/menu_icons.dart';
+import 'media_control.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,7 +49,18 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data! > const Duration(milliseconds: 1)) {
-                      return MiniReproductor(playerProvider: playerProvider);
+                      return GestureDetector(
+                        /**Para roger reutilizar la funcion dentro del ontab q es la misma en esta pagina y en la siguiente */
+                        onTap: () {
+                          showBottomSheet(
+                              context: context,
+                              builder: (context) => SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.964,
+                                  child: const MediaControl()));
+                        },
+                        child: MiniReproductor(playerProvider: playerProvider),
+                      );
                     }
                   }
 
