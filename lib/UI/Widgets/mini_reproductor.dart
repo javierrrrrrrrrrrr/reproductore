@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -22,109 +21,106 @@ class _MiniReproductorState extends State<MiniReproductor> {
   @override
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      child: Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
-        color: const Color.fromRGBO(19, 2, 19, 0.8),
-        child: Row(
-          children: [
-            const SizedBox(
-              width: 25,
-            ),
+    return Container(
+      height: 80,
+      width: MediaQuery.of(context).size.width,
+      color: const Color.fromRGBO(19, 2, 19, 0.8),
+      child: Row(
+        children: [
+          const SizedBox(
+            width: 25,
+          ),
 
-            QueryArtworkWidget(
-                artworkHeight: 65,
-                artworkWidth: 65,
-                artworkRepeat: ImageRepeat.noRepeat,
-                keepOldArtwork: true,
-                id: widget.playerProvider.currentSong!.id,
-                type: ArtworkType.AUDIO),
+          QueryArtworkWidget(
+              artworkHeight: 65,
+              artworkWidth: 65,
+              artworkRepeat: ImageRepeat.noRepeat,
+              keepOldArtwork: true,
+              id: widget.playerProvider.currentSong!.id,
+              type: ArtworkType.AUDIO),
 
-            // const CircleAvatar(
-            //   minRadius: 33,
-            // ),
-            const SizedBox(
-              width: 8,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                StreamBuilder<Duration>(
-                    stream: widget.playerProvider.player!.positionStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data! > const Duration(milliseconds: 1)) {
-                          return ScrollingTitle(widget.playerProvider);
-                        }
+          // const CircleAvatar(
+          //   minRadius: 33,
+          // ),
+          const SizedBox(
+            width: 8,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              StreamBuilder<Duration>(
+                  stream: widget.playerProvider.player!.positionStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data! > const Duration(milliseconds: 1)) {
+                        return ScrollingTitle(widget.playerProvider);
                       }
+                    }
 
-                      return Container();
-                    }),
-                const SizedBox(
-                  height: 6,
-                ),
-                StreamBuilder<Duration>(
-                    stream: widget.playerProvider.player!.positionStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data! > const Duration(milliseconds: 1)) {
-                          return Container(
-                            margin: const EdgeInsets.only(left: 10),
-                            width: 220,
-                            child: AutoSizeText(
-                              overflow: TextOverflow.ellipsis,
-                              widget.playerProvider.currentSong!.artist!,
-                              style: const TextStyle(
-                                  color: Color(0xffBDA7B7), fontSize: 16),
-                              maxLines: 1,
-                            ),
-                          );
-                        }
+                    return Container();
+                  }),
+              const SizedBox(
+                height: 6,
+              ),
+              StreamBuilder<Duration>(
+                  stream: widget.playerProvider.player!.positionStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data! > const Duration(milliseconds: 1)) {
+                        return Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          width: 220,
+                          child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            widget.playerProvider.currentSong!.artist!,
+                            style: const TextStyle(
+                                color: Color(0xffBDA7B7), fontSize: 16),
+                            maxLines: 1,
+                          ),
+                        );
                       }
+                    }
 
-                      return Container();
-                    }),
-              ],
-            ),
+                    return Container();
+                  }),
+            ],
+          ),
 
-            StreamBuilder<bool?>(
-                stream: widget.playerProvider.player!.playingStream,
-                builder: (context, snapshot) {
-                  if (snapshot.data == true) {
-                    return GestureDetector(
-                      child: Icon(
-                        Icons.pause,
-                        color: kiconocolor,
-                        size: 40,
-                      ),
-                      onTap: () {
-                        widget.playerProvider.player!.pause();
-                        setState(() {});
-                      },
-                    );
-                  }
+          StreamBuilder<bool?>(
+              stream: widget.playerProvider.player!.playingStream,
+              builder: (context, snapshot) {
+                if (snapshot.data == true) {
+                  return GestureDetector(
+                    child: Icon(
+                      Icons.pause,
+                      color: kiconocolor,
+                      size: 40,
+                    ),
+                    onTap: () {
+                      widget.playerProvider.player!.pause();
+                      setState(() {});
+                    },
+                  );
+                }
 
-                  if (snapshot.data == false) {
-                    return GestureDetector(
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: kiconocolor,
-                        size: 40,
-                      ),
-                      onTap: () {
-                        widget.playerProvider.player!.play();
-                        setState(() {});
-                      },
-                    );
-                  }
+                if (snapshot.data == false) {
+                  return GestureDetector(
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: kiconocolor,
+                      size: 40,
+                    ),
+                    onTap: () {
+                      widget.playerProvider.player!.play();
+                      setState(() {});
+                    },
+                  );
+                }
 
-                  return Container();
-                }),
-          ],
-        ),
+                return Container();
+              }),
+        ],
       ),
     );
   }
