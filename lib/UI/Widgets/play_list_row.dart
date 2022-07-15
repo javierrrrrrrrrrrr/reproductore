@@ -7,13 +7,18 @@ import '../../Business_logic/Provaiders/media_provider.dart';
 import '../../Business_logic/Provaiders/song_provider.dart';
 import '../../Constants/contants.dart';
 
-class PlayListRow extends StatelessWidget {
+class PlayListRow extends StatefulWidget {
   final int index;
   const PlayListRow({
     Key? key,
     required this.index,
   }) : super(key: key);
 
+  @override
+  State<PlayListRow> createState() => _PlayListRowState();
+}
+
+class _PlayListRowState extends State<PlayListRow> {
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.read<MediaProvider>();
@@ -23,6 +28,9 @@ class PlayListRow extends StatelessWidget {
         Icon(Icons.more_vert_rounded, color: kiconocolor, size: 60),
         GestureDetector(
           onTap: () async {
+            setState(() {
+              playerProvider.index = widget.index;
+            });
             // Define the playlist
             final playlist = ConcatenatingAudioSource(
                 // Start loading next item just before reaching it
@@ -34,7 +42,7 @@ class PlayListRow extends StatelessWidget {
                     playerProvider.createPlayList(queryProvider.songsByAlbum));
 
             await playerProvider.player!.setAudioSource(playlist,
-                initialIndex: index, initialPosition: Duration.zero);
+                initialIndex: widget.index, initialPosition: Duration.zero);
             print(
                 "-----------------Este es el audio source  ${playerProvider.player!.sequenceState!.currentIndex}");
 
@@ -70,7 +78,7 @@ class PlayListRow extends StatelessWidget {
                     artworkBorder: const BorderRadius.only(
                         topLeft: Radius.circular(12),
                         bottomLeft: Radius.circular(12)),
-                    id: queryProvider.songsByAlbum[index].id,
+                    id: queryProvider.songsByAlbum[widget.index].id,
                     type: ArtworkType.AUDIO,
                   ),
                 ),
@@ -83,7 +91,7 @@ class PlayListRow extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          queryProvider.songsByAlbum[index].title,
+                          queryProvider.songsByAlbum[widget.index].title,
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               color: kiconocolor,
@@ -91,7 +99,7 @@ class PlayListRow extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          queryProvider.songsByAlbum[index].album!,
+                          queryProvider.songsByAlbum[widget.index].album!,
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               color: kiconocolor,

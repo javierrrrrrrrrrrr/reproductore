@@ -41,7 +41,7 @@ class _MediaControlState extends State<MediaControl> {
                 stream: playerProvider.player!.currentIndexStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ScrollingTitle(playerProvider);
+                    return scrollingTitle(playerProvider);
                   }
                   if (snapshot.data == null) {
                     return const CircularProgressIndicator();

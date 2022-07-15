@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:reproductor/UI/Widgets/list_reproduccion_view.dart';
 
+import '../../Business_logic/Provaiders/media_provider.dart';
 import '../../Business_logic/Provaiders/song_provider.dart';
 
-class ModalPlayList extends StatelessWidget {
+class ModalPlayList extends StatefulWidget {
   const ModalPlayList({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<ModalPlayList> createState() => _ModalPlayListState();
+}
+
+class _ModalPlayListState extends State<ModalPlayList> {
+  @override
   Widget build(BuildContext context) {
     final queryProvider = context.read<QueryProvider>();
+    final playerProvider = context.read<MediaProvider>();
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
@@ -71,8 +79,40 @@ class ModalPlayList extends StatelessWidget {
             child: ListView.builder(
               itemCount: queryProvider.songsByAlbum.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListReproduccionView(
-                  song: queryProvider.songsByAlbum[index],
+                return GestureDetector(
+                  onTap: () async {
+                    setState(() {
+                      playerProvider.index = index;
+                    });
+                    /**roger es el mimso codigo que al seleccionar 
+                     * ver como organizar para no repetirlo
+                     * 
+                     */
+                    final playlist = ConcatenatingAudioSource(
+                        // Start loading next item just before reaching it
+                        useLazyPreparation: true,
+                        // Customise the shuffle algorithm
+                        shuffleOrder: DefaultShuffleOrder(),
+                        // Specify the playlist items
+                        children: playerProvider
+                            .createPlayList(queryProvider.songsByAlbum));
+
+                    await playerProvider.player!.setAudioSource(playlist,
+                        initialIndex: index, initialPosition: Duration.zero);
+                    print(
+                        "-----------------Este es el audio source  ${playerProvider.player!.sequenceState!.currentIndex}");
+
+                    // await playerProvider!.setAudioSource(AudioSource.uri(
+                    //     Uri.parse(queryProvider.songsByAlbum[index].uri!)));
+
+                    playerProvider.player!.play();
+                    playerProvider
+                        .updateSongPlaying(queryProvider.songsByAlbum);
+                  },
+                  child: ListReproduccionView(
+                    song: queryProvider.songsByAlbum[index],
+                    currentindex: index,
+                  ),
                 );
               },
             ),

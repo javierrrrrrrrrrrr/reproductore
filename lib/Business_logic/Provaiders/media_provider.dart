@@ -7,6 +7,7 @@ class MediaProvider extends ChangeNotifier {
   AudioPlayer? player;
   List<AudioSource> audioSource = [];
   SongModel? currentSong;
+  int? index;
   MediaProvider(this.player);
 
   List<AudioSource> createPlayList(List<SongModel> songs) {

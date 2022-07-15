@@ -1,30 +1,40 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 import 'package:reproductor/Constants/contants.dart';
 
 import '../../Business_logic/Provaiders/media_provider.dart';
 
 class ListReproduccionView extends StatelessWidget {
   final SongModel song;
-  const ListReproduccionView({
-    Key? key,
-    required this.song,
-  }) : super(key: key);
+  final int currentindex;
+  const ListReproduccionView(
+      {Key? key, required this.song, required this.currentindex})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final playerProvider = context.read<MediaProvider>();
     return SizedBox(
       width: 80,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
           children: [
-            const Icon(
-              Icons.equalizer,
-              color: Colors.blue,
-              size: 30,
-            ),
+            playerProvider.index == currentindex
+                ? const SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: Image(
+                      image: AssetImage('assets/play.gif'),
+                    ),
+                  )
+                : const Icon(
+                    Icons.equalizer,
+                    color: Colors.blue,
+                    size: 30,
+                  ),
             const SizedBox(
               width: 5,
             ),

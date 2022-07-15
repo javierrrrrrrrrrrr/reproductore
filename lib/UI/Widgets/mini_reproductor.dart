@@ -54,7 +54,7 @@ class _MiniReproductorState extends State<MiniReproductor> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data! > const Duration(milliseconds: 1)) {
-                        return ScrollingTitle(widget.playerProvider);
+                        return scrollingTitle(widget.playerProvider);
                       }
                     }
 
@@ -126,7 +126,7 @@ class _MiniReproductorState extends State<MiniReproductor> {
   }
 }
 
-Center ScrollingTitle(MediaProvider playerProvider) {
+Center scrollingTitle(MediaProvider playerProvider) {
   return Center(
     child: SizedBox(
       height: 20,
