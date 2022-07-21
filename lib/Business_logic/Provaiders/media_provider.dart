@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -13,7 +14,15 @@ class MediaProvider extends ChangeNotifier {
   List<AudioSource> createPlayList(List<SongModel> songs) {
     audioSource.clear();
     songs.map((item) {
+      print('Esta es la uri${item.uri} ');
+      print('Esta es la data${item.data} ');
       audioSource.add(AudioSource.uri(
+        tag: MediaItem(
+            artUri: Uri.parse(item.uri!),
+            id: item.id.toString(),
+            title: item.title,
+            album: item.album,
+            artist: item.artist),
         Uri.parse(item.uri!),
       ));
     }).toList();

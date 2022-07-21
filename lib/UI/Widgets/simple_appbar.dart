@@ -52,9 +52,23 @@ class SimpleAppbar extends StatelessWidget {
                   const SizedBox(
                     height: 14,
                   ),
-                  Text(
-                    'Establecer como tono de llamada',
-                    style: TextStyle(fontSize: 13, color: kprimarycolor),
+                  GestureDetector(
+                    onTap: () {
+                      //      final playerProvider = context.read<MediaProvider>();
+                      //     final File ringtoneFile =
+                      //           File('content://media/external/audio/media/83315');
+
+                      //     RingtoneSet.setRingtoneFromFile(ringtoneFile);
+
+                      //       print(
+                      //           "Esssssssssss ${playerProvider.}");
+
+                      // RingtoneSet.setRingtone();
+                    },
+                    child: Text(
+                      'Establecer como tono de llamada',
+                      style: TextStyle(fontSize: 13, color: kprimarycolor),
+                    ),
                   ),
                   const SizedBox(
                     height: 14,

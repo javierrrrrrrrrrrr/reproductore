@@ -36,9 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   on_audio_query: ^2.6.1
   just_audio: ^0.9.27
+  audio_service: ^0.18.7
+  just_audio_background: ^0.0.1-beta.7
   provider: ^6.0.3
   audio_video_progress_bar: ^0.10.0
   marquee: ^2.2.3
+  ringtone_set: ^0.0.2
 
 dev_dependencies:
   flutter_test:
