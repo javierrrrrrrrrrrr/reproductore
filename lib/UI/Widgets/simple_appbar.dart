@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:reproductor/Constants/contants.dart';
 
 class SimpleAppbar extends StatelessWidget {
+  final double height;
   const SimpleAppbar({
     Key? key,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -16,7 +18,7 @@ class SimpleAppbar extends StatelessWidget {
           child: Icon(
             Icons.density_medium,
             color: kiconocolor,
-            size: 40,
+            size: height * 0.05,
           ),
         ),
         GestureDetector(
@@ -26,7 +28,7 @@ class SimpleAppbar extends StatelessWidget {
           child: Icon(
             Icons.settings,
             color: kiconocolor,
-            size: 40,
+            size: height * 0.05,
           ),
         ),
       ],
@@ -37,20 +39,21 @@ class SimpleAppbar extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        insetPadding: const EdgeInsets.only(left: 140, right: 30, bottom: 100),
+        insetPadding: EdgeInsets.only(
+            left: height * 0.18, right: height * 0.036, bottom: height * 0.12),
         contentPadding: EdgeInsets.zero,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         content: Builder(builder: (context) {
           return SizedBox(
-            height: 160,
+            height: height * 0.199,
             child: Padding(
-              padding: const EdgeInsets.only(left: 15),
+              padding: EdgeInsets.only(left: height * 0.016),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: height * 0.016,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -67,39 +70,44 @@ class SimpleAppbar extends StatelessWidget {
                     },
                     child: Text(
                       'Establecer como tono de llamada',
-                      style: TextStyle(fontSize: 13, color: kprimarycolor),
+                      style: TextStyle(
+                          fontSize: height * 0.016, color: kprimarycolor),
                     ),
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: height * 0.016,
                   ),
                   Text(
                     'Agregar a la lista de reproduccion',
-                    style: TextStyle(fontSize: 13, color: kprimarycolor),
+                    style: TextStyle(
+                        fontSize: height * 0.016, color: kprimarycolor),
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: height * 0.016,
                   ),
                   Text(
                     'Recortar Cancion',
-                    style: TextStyle(fontSize: 13, color: kprimarycolor),
+                    style: TextStyle(
+                        fontSize: height * 0.016, color: kprimarycolor),
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: height * 0.016,
                   ),
                   Text(
                     'Eliminar',
-                    style: TextStyle(fontSize: 13, color: kprimarycolor),
+                    style: TextStyle(
+                        fontSize: height * 0.016, color: kprimarycolor),
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: height * 0.016,
                   ),
                   Text(
                     'Archivar',
-                    style: TextStyle(fontSize: 13, color: kprimarycolor),
+                    style: TextStyle(
+                        fontSize: height * 0.016, color: kprimarycolor),
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: height * 0.016,
                   )
                 ],
               ),

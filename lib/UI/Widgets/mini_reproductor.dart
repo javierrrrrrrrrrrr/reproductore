@@ -6,9 +6,11 @@ import 'package:reproductor/Constants/contants.dart';
 import '../../Business_logic/Provaiders/media_provider.dart';
 
 class MiniReproductor extends StatefulWidget {
+  final double height;
   const MiniReproductor({
     Key? key,
     required this.playerProvider,
+    required this.height,
   }) : super(key: key);
 
   final MediaProvider playerProvider;
@@ -19,16 +21,15 @@ class MiniReproductor extends StatefulWidget {
 
 class _MiniReproductorState extends State<MiniReproductor> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: widget.height * 0.096,
       width: MediaQuery.of(context).size.width,
       color: const Color.fromRGBO(19, 2, 19, 0.8),
       child: Row(
         children: [
-          const SizedBox(
-            width: 25,
+          SizedBox(
+            width: widget.height * 0.026,
           ),
 
           QueryArtworkWidget(
@@ -42,8 +43,8 @@ class _MiniReproductorState extends State<MiniReproductor> {
           // const CircleAvatar(
           //   minRadius: 33,
           // ),
-          const SizedBox(
-            width: 8,
+          SizedBox(
+            width: widget.height * 0.012,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,14 +55,15 @@ class _MiniReproductorState extends State<MiniReproductor> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data! > const Duration(milliseconds: 1)) {
-                        return scrollingTitle(widget.playerProvider);
+                        return scrollingTitle(
+                            widget.playerProvider, widget.height);
                       }
                     }
 
                     return Container();
                   }),
-              const SizedBox(
-                height: 6,
+              SizedBox(
+                height: widget.height * 0.007,
               ),
               StreamBuilder<Duration>(
                   stream: widget.playerProvider.player!.positionStream,
@@ -69,13 +71,14 @@ class _MiniReproductorState extends State<MiniReproductor> {
                     if (snapshot.hasData) {
                       if (snapshot.data! > const Duration(milliseconds: 1)) {
                         return Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          width: 220,
+                          margin: EdgeInsets.only(left: widget.height * 0.012),
+                          width: widget.height * 0.3,
                           child: Text(
                             overflow: TextOverflow.ellipsis,
                             widget.playerProvider.currentSong!.artist!,
-                            style: const TextStyle(
-                                color: Color(0xffBDA7B7), fontSize: 16),
+                            style: TextStyle(
+                                color: const Color(0xffBDA7B7),
+                                fontSize: widget.height * 0.02),
                             maxLines: 1,
                           ),
                         );
@@ -95,7 +98,7 @@ class _MiniReproductorState extends State<MiniReproductor> {
                     child: Icon(
                       Icons.pause,
                       color: kiconocolor,
-                      size: 40,
+                      size: widget.height * 0.05,
                     ),
                     onTap: () {
                       widget.playerProvider.player!.pause();
@@ -109,7 +112,7 @@ class _MiniReproductorState extends State<MiniReproductor> {
                     child: Icon(
                       Icons.play_arrow,
                       color: kiconocolor,
-                      size: 40,
+                      size: widget.height * 0.05,
                     ),
                     onTap: () {
                       widget.playerProvider.player!.play();
@@ -126,11 +129,11 @@ class _MiniReproductorState extends State<MiniReproductor> {
   }
 }
 
-Center scrollingTitle(MediaProvider playerProvider) {
+Center scrollingTitle(MediaProvider playerProvider, double height) {
   return Center(
     child: SizedBox(
-      height: 20,
-      width: 220,
+      height: height * 0.024,
+      width: height * 0.3,
       child: Marquee(
         text: playerProvider.currentSong!.title,
         style: const TextStyle(color: Color(0xffBDA7B7), fontSize: 18),

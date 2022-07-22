@@ -3,9 +3,11 @@ import 'package:reproductor/Business_logic/Provaiders/media_provider.dart';
 import 'package:reproductor/UI/Widgets/play_buttom.dart';
 
 class MediaComandsButton extends StatelessWidget {
+  final double height;
   const MediaComandsButton({
     Key? key,
     required this.playerProvider,
+    required this.height,
   }) : super(key: key);
 
   final MediaProvider playerProvider;
@@ -20,31 +22,34 @@ class MediaComandsButton extends StatelessWidget {
             playerProvider.player!.seek(
                 playerProvider.player!.position - const Duration(seconds: 10));
           },
-          child: const Icon(
+          child: Icon(
             Icons.replay_10,
-            color: Color(0xffB2A5AB),
-            size: 50,
+            color: const Color(0xffB2A5AB),
+            size: height * 0.07,
           ),
         ),
         GestureDetector(
           onTap: () {
             playerProvider.player!.seekToPrevious();
           },
-          child: const Icon(
+          child: Icon(
             Icons.skip_previous,
-            color: Color(0xffB2A5AB),
-            size: 50,
+            color: const Color(0xffB2A5AB),
+            size: height * 0.07,
           ),
         ),
-        PlayButton(playerProvider: playerProvider),
+        PlayButton(
+          playerProvider: playerProvider,
+          height: height,
+        ),
         GestureDetector(
           onTap: () async {
             await playerProvider.player!.seekToNext();
           },
-          child: const Icon(
+          child: Icon(
             Icons.skip_next,
-            color: Color(0xffB2A5AB),
-            size: 50,
+            color: const Color(0xffB2A5AB),
+            size: height * 0.07,
           ),
         ),
         GestureDetector(
@@ -52,10 +57,10 @@ class MediaComandsButton extends StatelessWidget {
             playerProvider.player!.seek(
                 playerProvider.player!.position + const Duration(seconds: 10));
           },
-          child: const Icon(
+          child: Icon(
             Icons.forward_10_sharp,
-            color: Color(0xffB2A5AB),
-            size: 50,
+            color: const Color(0xffB2A5AB),
+            size: height * 0.07,
           ),
         ),
       ],

@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 import '../../Business_logic/Provaiders/media_provider.dart';
 
 class PlayButton extends StatefulWidget {
+  final double height;
   const PlayButton({
     Key? key,
     required this.playerProvider,
+    required this.height,
   }) : super(key: key);
 
   final MediaProvider playerProvider;
@@ -29,10 +31,10 @@ class _PlayButtonState extends State<PlayButton> {
                 widget.playerProvider.player!.pause();
                 setState(() {});
               },
-              child: const Icon(
+              child: Icon(
                 Icons.pause_circle_outline,
-                color: Color(0xffE4D1C1),
-                size: 100,
+                color: const Color(0xffE4D1C1),
+                size: widget.height * 0.13,
               ),
             );
           }
@@ -42,38 +44,15 @@ class _PlayButtonState extends State<PlayButton> {
                 setState(() {});
                 widget.playerProvider.player!.play();
               },
-              child: const Icon(
+              child: Icon(
                 Icons.play_circle_outline,
-                color: Color(0xffE4D1C1),
-                size: 100,
+                color: const Color(0xffE4D1C1),
+                size: widget.height * 0.13,
               ),
             );
           }
 
           return Container();
         });
-    // return widget.playerProvider.player!.playing == true
-    // ? GestureDetector(
-    //     onTap: () async {
-    //       widget.playerProvider.player!.pause();
-    //       setState(() {});
-    //     },
-    //     child: const Icon(
-    //       Icons.pause_circle_outline,
-    //       color: Color(0xffE4D1C1),
-    //       size: 100,
-    //     ),
-    //   )
-    // : GestureDetector(
-    //     onTap: () async {
-    //       setState(() {});
-    //       widget.playerProvider.player!.play();
-    //     },
-    //     child: const Icon(
-    //       Icons.play_circle_outline,
-    //       color: Color(0xffE4D1C1),
-    //       size: 100,
-    //     ),
-    //   );
   }
 }

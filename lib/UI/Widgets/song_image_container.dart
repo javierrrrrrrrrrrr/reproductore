@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 import '../../Business_logic/Provaiders/media_provider.dart';
 
 class SongImgContainer extends StatelessWidget {
+  final double height;
   const SongImgContainer({
     Key? key,
+    required this.height,
   }) : super(key: key);
 
   get kprimarycolor => null;
@@ -16,8 +18,8 @@ class SongImgContainer extends StatelessWidget {
     final playerProvider = Provider.of<MediaProvider>(context);
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 30),
-      height: MediaQuery.of(context).size.height * 0.4,
+      margin: EdgeInsets.symmetric(vertical: height * 0.036),
+      height: height * 0.4,
       child: Stack(
         children: [
           StreamBuilder<int?>(
@@ -29,7 +31,8 @@ class SongImgContainer extends StatelessWidget {
                   type: ArtworkType.AUDIO,
                   artworkHeight: MediaQuery.of(context).size.height * 0.4,
                   artworkWidth: double.infinity,
-                  artworkBorder: const BorderRadius.all(Radius.circular(40)),
+                  artworkBorder:
+                      BorderRadius.all(Radius.circular(height * 0.05)),
                 );
               }),
           Align(
@@ -37,7 +40,7 @@ class SongImgContainer extends StatelessWidget {
               child: Icon(
                 shadows: const [Shadow(color: Colors.black, blurRadius: 2)],
                 Icons.favorite_border,
-                size: 30,
+                size: height * 0.1,
                 color: kprimarycolor,
               )),
         ],

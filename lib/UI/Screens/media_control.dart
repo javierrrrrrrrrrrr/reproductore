@@ -22,26 +22,31 @@ class _MediaControlState extends State<MediaControl> {
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.read<MediaProvider>();
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      drawer: const CustomDrawer(),
+      drawer: CustomDrawer(
+        height: height,
+      ),
       backgroundColor: kprimarycolor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: SimpleAppbar(),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SimpleAppbar(
+                height: height,
+              ),
             ),
-            const SongImgContainer(),
-            StreamArtist(playerProvider: playerProvider),
+            SongImgContainer(height: height),
+            StreamArtist(playerProvider: playerProvider, height: height),
             const SizedBox(height: 18),
             StreamBuilder<int?>(
                 stream: playerProvider.player!.currentIndexStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return scrollingTitle(playerProvider);
+                    return scrollingTitle(playerProvider, height);
                   }
                   if (snapshot.data == null) {
                     return const CircularProgressIndicator();
@@ -51,9 +56,12 @@ class _MediaControlState extends State<MediaControl> {
             const SizedBox(height: 30),
             CustomProgressBar(playerProvider: playerProvider),
             const SizedBox(height: 15),
-            const BellowProgressBar(),
+            BellowProgressBar(height: height),
             const SizedBox(height: 23),
-            MediaComandsButton(playerProvider: playerProvider)
+            MediaComandsButton(
+              playerProvider: playerProvider,
+              height: height,
+            )
           ],
         ),
       ),

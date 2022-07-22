@@ -7,8 +7,10 @@ import '../../Business_logic/Provaiders/media_provider.dart';
 import 'modal_playlist.dart';
 
 class BellowProgressBar extends StatefulWidget {
+  final double height;
   const BellowProgressBar({
     Key? key,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -37,15 +39,15 @@ class _BellowProgressBarState extends State<BellowProgressBar> {
                 ? Icon(
                     Icons.shuffle,
                     color: kiconocolor,
-                    size: 30,
+                    size: widget.height * 0.035,
                   )
                 : Icon(
                     Icons.arrow_forward,
                     color: kiconocolor,
-                    size: 30,
+                    size: widget.height * 0.035,
                   )),
-        const SizedBox(
-          width: 10,
+        SizedBox(
+          width: widget.height * 0.012,
         ),
         GestureDetector(
             onTap: () {
@@ -60,19 +62,19 @@ class _BellowProgressBarState extends State<BellowProgressBar> {
                 ? Icon(
                     Icons.linear_scale_outlined,
                     color: kiconocolor,
-                    size: 30,
+                    size: widget.height * 0.036,
                   )
                 : Icon(
                     Icons.repeat,
                     color: kiconocolor,
-                    size: 30,
+                    size: widget.height * 0.036,
                   )),
         const Spacer(),
         GestureDetector(
           child: Icon(
             Icons.queue_music,
             color: kiconocolor,
-            size: 30,
+            size: widget.height * 0.036,
           ),
           onTap: () {
             showModalBottomSheet(

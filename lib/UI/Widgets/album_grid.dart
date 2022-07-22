@@ -6,8 +6,10 @@ import 'package:reproductor/Business_logic/Provaiders/song_provider.dart';
 import 'custom_card.dart';
 
 class AlbumGrid extends StatelessWidget {
+  final double height;
   const AlbumGrid({
     Key? key,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,10 @@ class AlbumGrid extends StatelessWidget {
               return GridView.builder(
                 itemCount: snapshot.data!.length,
                 physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                padding: EdgeInsets.only(
+                    left: height * 0.024,
+                    right: height * 0.024,
+                    top: height * 0.024),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
                   childAspectRatio: 1,
@@ -41,6 +46,7 @@ class AlbumGrid extends StatelessWidget {
                 ),
                 itemBuilder: (BuildContext context, index) {
                   return CustomCard(
+                    height: height,
                     id: snapshot.data![index].id,
                     cantSongs: snapshot.data![index].numOfSongs,
                     nameAlbum: snapshot.data![index].album,

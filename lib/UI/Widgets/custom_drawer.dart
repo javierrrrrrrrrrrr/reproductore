@@ -3,8 +3,10 @@ import 'package:reproductor/Constants/contants.dart';
 import 'package:reproductor/UI/Screens/home_page.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final double height;
   const CustomDrawer({
     Key? key,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -13,24 +15,28 @@ class CustomDrawer extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         backgroundColor: const Color.fromRGBO(242, 235, 233, 1),
-        width: width * 0.85,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(35))),
+        width: height * 0.40,
+        shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.only(topRight: Radius.circular(height * 0.036))),
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 200, top: 10),
-              child: IconCloseDrawer(),
+            Padding(
+              padding:
+                  EdgeInsets.only(left: height * 0.29, top: height * 0.012),
+              child: const IconCloseDrawer(),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: AvatarSection(),
+            Padding(
+              padding: EdgeInsets.only(left: height * 0.024),
+              child: AvatarSection(
+                height: height,
+              ),
             ),
             Divider(
                 indent: width * 0.06,
                 endIndent: width * 0.06,
                 thickness: 1,
-                height: 50,
+                height: height * 0.060,
                 color: kprimarycolor),
             const CustomListTile(icono: Icons.home, texto: "Home"),
             const CustomListTile(
@@ -41,8 +47,8 @@ class CustomDrawer extends StatelessWidget {
             const Spacer(),
             const CustomListTile(icono: Icons.settings, texto: "Ajustes"),
             const CustomListTile(icono: Icons.key, texto: "Privacidad"),
-            const SizedBox(
-              height: 18,
+            SizedBox(
+              height: height * 0.022,
             ),
           ],
         ),
@@ -52,8 +58,10 @@ class CustomDrawer extends StatelessWidget {
 }
 
 class AvatarSection extends StatelessWidget {
+  final double height;
   const AvatarSection({
     Key? key,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -61,17 +69,19 @@ class AvatarSection extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          maxRadius: 30,
+          maxRadius: height * 0.038,
           backgroundColor: kprimarycolor,
         ),
-        const SizedBox(
-          width: 15,
+        SizedBox(
+          width: height * 0.020,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('Nombre de usuario', style: TextStyle(fontSize: 20)),
-            Text('Algo que se debe mostrar', style: TextStyle(fontSize: 12)),
+          children: [
+            Text('Nombre de usuario',
+                style: TextStyle(fontSize: height * 0.028)),
+            Text('Algo que se debe mostrar',
+                style: TextStyle(fontSize: height * 0.016)),
           ],
         )
       ],

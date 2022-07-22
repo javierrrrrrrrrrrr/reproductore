@@ -7,62 +7,67 @@ import 'package:reproductor/Constants/contants.dart';
 import '../../Business_logic/Provaiders/media_provider.dart';
 
 class ListReproduccionView extends StatelessWidget {
+  final double height;
   final SongModel song;
   final int currentindex;
   const ListReproduccionView(
-      {Key? key, required this.song, required this.currentindex})
+      {Key? key,
+      required this.song,
+      required this.currentindex,
+      required this.height})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.read<MediaProvider>();
     return SizedBox(
-      width: 80,
+      width: height * 0.096,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding:
+            EdgeInsets.symmetric(horizontal: height * 0.014, vertical: 0.009),
         child: Row(
           children: [
             playerProvider.index == currentindex
-                ? const SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: Image(
+                ? SizedBox(
+                    height: height * 0.036,
+                    width: height * 0.036,
+                    child: const Image(
                       image: AssetImage('assets/play.gif'),
                     ),
                   )
-                : const Icon(
+                : Icon(
                     Icons.equalizer,
                     color: Colors.blue,
-                    size: 30,
+                    size: height * 0.040,
                   ),
-            const SizedBox(
-              width: 5,
+            SizedBox(
+              width: height * 0.006,
             ),
             SizedBox(
-              width: 248,
+              width: height * 0.3,
               child: Text(
                 '${song.artist!} - ${song.title} ',
-                style: const TextStyle(color: Colors.blue, fontSize: 16),
+                style: TextStyle(color: Colors.blue, fontSize: height * 0.025),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: height * 0.012,
             ),
             const Spacer(),
-            const Icon(
+            Icon(
               Icons.close,
-              color: Color.fromRGBO(255, 255, 255, 0.8),
-              size: 30,
+              color: const Color.fromRGBO(255, 255, 255, 0.8),
+              size: height * 0.038,
             ),
-            const SizedBox(
-              width: 15,
+            SizedBox(
+              width: height * 0.014,
             ),
-            const Icon(
+            Icon(
               Icons.menu,
-              color: Color.fromRGBO(255, 255, 255, 0.8),
-              size: 30,
+              color: const Color.fromRGBO(255, 255, 255, 0.8),
+              size: height * 0.038,
             ),
           ],
         ),

@@ -26,18 +26,20 @@ class _ReproductionListState extends State<ReproductionList> {
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.read<MediaProvider>();
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       //key: ValueKey<bool>(playerProvider.player!.playing),
 
-      drawer: const CustomDrawer(),
+      drawer: CustomDrawer(height: height),
       backgroundColor: kprimarycolor,
       body: SafeArea(
           child: Stack(
         children: [
           Column(
             children: [
-              const CustomAppBar(),
-              const MenuNavegacionIconos(
+              CustomAppBar(height: height),
+              MenuNavegacionIconos(
+                height: height,
                 icon1: Icons.shuffle,
                 icon2: Icons.repeat,
                 icon3: Icons.add_circle_outline,
@@ -46,7 +48,9 @@ class _ReproductionListState extends State<ReproductionList> {
               const SizedBox(
                 height: 20,
               ),
-              const PlayList(),
+              PlayList(
+                height: height,
+              ),
               StreamBuilder<Duration>(
                   stream: playerProvider.player!.positionStream,
                   builder: (context, snapshot) {
@@ -63,7 +67,9 @@ class _ReproductionListState extends State<ReproductionList> {
                                       child: const MediaControl()));
                             },
                             child: MiniReproductor(
-                                playerProvider: playerProvider));
+                              playerProvider: playerProvider,
+                              height: height,
+                            ));
                       }
                     }
 
@@ -78,8 +84,10 @@ class _ReproductionListState extends State<ReproductionList> {
 }
 
 class PlayList extends StatelessWidget {
+  final double height;
   const PlayList({
     Key? key,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -94,6 +102,7 @@ class PlayList extends StatelessWidget {
           itemCount: context.read<QueryProvider>().songsByAlbum.length,
           itemBuilder: (context, index) {
             return PlayListRow(
+              height: height,
               index: index,
             );
           }),

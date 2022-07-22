@@ -8,10 +8,12 @@ import '../../Business_logic/Provaiders/song_provider.dart';
 import '../../Constants/contants.dart';
 
 class PlayListRow extends StatefulWidget {
+  final double height;
   final int index;
   const PlayListRow({
     Key? key,
     required this.index,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,8 @@ class _PlayListRowState extends State<PlayListRow> {
     final queryProvider = context.read<QueryProvider>();
     return Row(
       children: [
-        Icon(Icons.more_vert_rounded, color: kiconocolor, size: 60),
+        Icon(Icons.more_vert_rounded,
+            color: kiconocolor, size: widget.height * 0.1),
         GestureDetector(
           onTap: () async {
             setState(() {
@@ -43,49 +46,46 @@ class _PlayListRowState extends State<PlayListRow> {
 
             await playerProvider.player!.setAudioSource(playlist,
                 initialIndex: widget.index, initialPosition: Duration.zero);
-            print(
-                "-----------------Este es el audio source  ${playerProvider.player!.sequenceState!.currentIndex}");
 
             // await playerProvider!.setAudioSource(AudioSource.uri(
             //     Uri.parse(queryProvider.songsByAlbum[index].uri!)));
 
             playerProvider.player!.play();
             playerProvider.updateSongPlaying(queryProvider.songsByAlbum);
-
-            // ignore: use_build_context_synchronously
           },
           child: Container(
-            height: 90,
-            width: 300,
+            height: widget.height * 0.1,
+            width: widget.height * 0.38,
             decoration: BoxDecoration(
               color: kprimarycolor,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(width: 1.0, color: kiconocolor),
+              borderRadius: BorderRadius.circular(widget.height * 0.01),
+              border:
+                  Border.all(width: widget.height * 0.001, color: kiconocolor),
             ),
             child: Row(
               children: [
                 Container(
-                  width: 80,
+                  width: widget.height * 0.096,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(widget.height * 0.01),
+                        bottomLeft: Radius.circular(widget.height * 0.01)),
                     color: kiconocolor,
                   ),
                   child: QueryArtworkWidget(
-                    artworkHeight: 90,
+                    artworkHeight: widget.height * 0.1,
                     artworkFit: BoxFit.cover,
-                    artworkBorder: const BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12)),
+                    artworkBorder: BorderRadius.only(
+                        topLeft: Radius.circular(widget.height * 0.01),
+                        bottomLeft: Radius.circular(widget.height * 0.01)),
                     id: queryProvider.songsByAlbum[widget.index].id,
                     type: ArtworkType.AUDIO,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: widget.height * 0.012),
                   child: SizedBox(
-                    width: 172,
+                    width: widget.height * 0.2,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +95,7 @@ class _PlayListRowState extends State<PlayListRow> {
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               color: kiconocolor,
-                              fontSize: 18,
+                              fontSize: widget.height * 0.021,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -103,7 +103,7 @@ class _PlayListRowState extends State<PlayListRow> {
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               color: kiconocolor,
-                              fontSize: 16,
+                              fontSize: widget.height * 0.019,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -113,7 +113,7 @@ class _PlayListRowState extends State<PlayListRow> {
                 Icon(
                   Icons.more_vert_rounded,
                   color: kiconocolor,
-                  size: 35,
+                  size: widget.height * 0.05,
                 ),
               ],
             ),

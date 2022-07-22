@@ -20,6 +20,7 @@ class _ModalPlayListState extends State<ModalPlayList> {
   Widget build(BuildContext context) {
     final queryProvider = context.read<QueryProvider>();
     final playerProvider = context.read<MediaProvider>();
+    final height = MediaQuery.of(context).size.height;
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
@@ -110,6 +111,7 @@ class _ModalPlayListState extends State<ModalPlayList> {
                         .updateSongPlaying(queryProvider.songsByAlbum);
                   },
                   child: ListReproduccionView(
+                    height: height,
                     song: queryProvider.songsByAlbum[index],
                     currentindex: index,
                   ),

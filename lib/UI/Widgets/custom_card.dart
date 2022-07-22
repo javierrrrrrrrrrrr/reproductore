@@ -8,6 +8,7 @@ import 'package:reproductor/Constants/contants.dart';
 import '../Screens/reproducion_list_page.dart';
 
 class CustomCard extends StatelessWidget {
+  final double height;
   final String nameAlbum;
   final int cantSongs;
   final int id;
@@ -19,6 +20,7 @@ class CustomCard extends StatelessWidget {
     required this.cantSongs,
     required this.id,
     this.artistName,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -38,8 +40,6 @@ class CustomCard extends StatelessWidget {
         );
       },
       child: Container(
-        // height: 200,
-        // width: 162,
         decoration: BoxDecoration(
           boxShadow: const [
             BoxShadow(
@@ -48,54 +48,57 @@ class CustomCard extends StatelessWidget {
               spreadRadius: 1,
             ),
           ],
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(height * 0.012),
           color: kprimarycolor,
         ),
         child: Stack(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 3, left: 3, right: 3),
-              height: 160,
-              width: 162,
+              margin: EdgeInsets.only(
+                  top: height * 0.003,
+                  left: height * 0.003,
+                  right: height * 0.003),
+              height: height * 0.192,
+              width: height * 0.199,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(height * 0.012),
               ),
               child: QueryArtworkWidget(
-                artworkBorder: BorderRadius.circular(10),
+                artworkBorder: BorderRadius.circular(height * 0.012),
                 id: id,
                 type: ArtworkType.ALBUM,
               ),
             ),
             Positioned(
-              bottom: 30,
-              left: 12,
+              bottom: height * 0.036,
+              left: height * 0.014,
               child: SizedBox(
-                width: 150,
+                width: height * 0.18,
                 child: Text(
                   nameAlbum,
-                  style: const TextStyle(
-                      fontSize: 16,
+                  style: TextStyle(
+                      fontSize: height * 0.019,
                       color: Colors.white,
                       overflow: TextOverflow.ellipsis),
                 ),
               ),
             ),
             Positioned(
-                bottom: 5,
-                left: 12,
+                bottom: height * 0.006,
+                left: height * 0.014,
                 child: Text(
                   '${cantSongs.toString()} pistas',
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: height * 0.019,
                     color: Colors.white,
                   ),
                 )),
-            const Positioned(
+            Positioned(
                 bottom: 0,
-                right: 6,
+                right: height * 0.007,
                 child: Icon(
                   Icons.queue_music_outlined,
-                  size: 30,
+                  size: height * 0.036,
                   color: Colors.white,
                 )),
           ],
