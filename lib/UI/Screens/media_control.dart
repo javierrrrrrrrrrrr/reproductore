@@ -24,9 +24,7 @@ class _MediaControlState extends State<MediaControl> {
     final playerProvider = context.read<MediaProvider>();
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      drawer: CustomDrawer(
-        height: height,
-      ),
+      drawer: const CustomDrawer(),
       backgroundColor: kprimarycolor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
@@ -46,7 +44,16 @@ class _MediaControlState extends State<MediaControl> {
                 stream: playerProvider.player!.currentIndexStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return scrollingTitle(playerProvider, height);
+                    if (playerProvider.currentSong!.title.length > 30) {
+                      return ScrollingTitle(playerProvider: playerProvider);
+                    } else {
+                      return Text(
+                        textAlign: TextAlign.center,
+                        playerProvider.currentSong!.title,
+                        style: const TextStyle(
+                            color: Color(0xffBDA7B7), fontSize: 21),
+                      );
+                    }
                   }
                   if (snapshot.data == null) {
                     return const CircularProgressIndicator();
@@ -56,7 +63,7 @@ class _MediaControlState extends State<MediaControl> {
             const SizedBox(height: 30),
             CustomProgressBar(playerProvider: playerProvider),
             const SizedBox(height: 15),
-            BellowProgressBar(height: height),
+            const BellowProgressBar(),
             const SizedBox(height: 23),
             MediaComandsButton(
               playerProvider: playerProvider,

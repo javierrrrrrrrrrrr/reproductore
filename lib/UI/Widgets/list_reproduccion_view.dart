@@ -7,67 +7,68 @@ import 'package:reproductor/Constants/contants.dart';
 import '../../Business_logic/Provaiders/media_provider.dart';
 
 class ListReproduccionView extends StatelessWidget {
-  final double height;
   final SongModel song;
   final int currentindex;
-  const ListReproduccionView(
-      {Key? key,
-      required this.song,
-      required this.currentindex,
-      required this.height})
-      : super(key: key);
+  const ListReproduccionView({
+    Key? key,
+    required this.song,
+    required this.currentindex,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.read<MediaProvider>();
+    final size = MediaQuery.of(context).size;
     return SizedBox(
-      width: height * 0.096,
+      width: size.width,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: height * 0.014, vertical: 0.009),
+        padding: EdgeInsets.symmetric(
+            horizontal: size.height * 0.014, vertical: size.width * 0.0075),
         child: Row(
           children: [
             playerProvider.index == currentindex
                 ? SizedBox(
-                    height: height * 0.036,
-                    width: height * 0.036,
+                    height: size.height * 0.045,
+                    width: size.width * 0.07,
                     child: const Image(
-                      image: AssetImage('assets/play.gif'),
+                      image: AssetImage('assets/music.gif'),
+                      fit: BoxFit.cover,
                     ),
                   )
                 : Icon(
                     Icons.equalizer,
                     color: Colors.blue,
-                    size: height * 0.040,
+                    size: size.height * 0.040,
                   ),
             SizedBox(
-              width: height * 0.006,
+              width: size.width * 0.006,
             ),
             SizedBox(
-              width: height * 0.3,
+              width: size.width * 0.62,
               child: Text(
                 '${song.artist!} - ${song.title} ',
-                style: TextStyle(color: Colors.blue, fontSize: height * 0.025),
+                style: TextStyle(
+                    color: Colors.blue, fontSize: size.height * 0.025),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             SizedBox(
-              width: height * 0.012,
+              width: size.width * 0.012,
             ),
             const Spacer(),
             Icon(
               Icons.close,
               color: const Color.fromRGBO(255, 255, 255, 0.8),
-              size: height * 0.038,
+              size: size.height * 0.038,
             ),
             SizedBox(
-              width: height * 0.014,
+              width: size.width * 0.028,
             ),
             Icon(
               Icons.menu,
               color: const Color.fromRGBO(255, 255, 255, 0.8),
-              size: height * 0.038,
+              size: size.height * 0.038,
             ),
           ],
         ),

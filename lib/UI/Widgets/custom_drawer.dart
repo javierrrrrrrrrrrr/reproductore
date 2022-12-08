@@ -3,40 +3,39 @@ import 'package:reproductor/Constants/contants.dart';
 import 'package:reproductor/UI/Screens/home_page.dart';
 
 class CustomDrawer extends StatelessWidget {
-  final double height;
   const CustomDrawer({
     Key? key,
-    required this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Drawer(
         backgroundColor: const Color.fromRGBO(242, 235, 233, 1),
-        width: height * 0.40,
+        width: size.width * 0.90,
         shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.only(topRight: Radius.circular(height * 0.036))),
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(size.height * 0.036))),
         child: Column(
           children: [
             Padding(
-              padding:
-                  EdgeInsets.only(left: height * 0.29, top: height * 0.012),
+              padding: EdgeInsets.only(
+                  left: size.height * 0.29,
+                  top: size.height * 0.018,
+                  bottom: size.height * 0.025),
               child: const IconCloseDrawer(),
             ),
             Padding(
-              padding: EdgeInsets.only(left: height * 0.024),
-              child: AvatarSection(
-                height: height,
-              ),
+              padding: EdgeInsets.only(left: size.height * 0.024),
+              child: const AvatarSection(),
             ),
             Divider(
                 indent: width * 0.06,
                 endIndent: width * 0.06,
                 thickness: 1,
-                height: height * 0.060,
+                height: size.height * 0.060,
                 color: kprimarycolor),
             const CustomListTile(icono: Icons.home, texto: "Home"),
             const CustomListTile(
@@ -48,7 +47,7 @@ class CustomDrawer extends StatelessWidget {
             const CustomListTile(icono: Icons.settings, texto: "Ajustes"),
             const CustomListTile(icono: Icons.key, texto: "Privacidad"),
             SizedBox(
-              height: height * 0.022,
+              height: size.height * 0.022,
             ),
           ],
         ),
@@ -58,30 +57,29 @@ class CustomDrawer extends StatelessWidget {
 }
 
 class AvatarSection extends StatelessWidget {
-  final double height;
   const AvatarSection({
     Key? key,
-    required this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Row(
       children: [
         CircleAvatar(
-          maxRadius: height * 0.038,
+          maxRadius: size.height * 0.038,
           backgroundColor: kprimarycolor,
         ),
         SizedBox(
-          width: height * 0.020,
+          width: size.width * 0.020,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Nombre de usuario',
-                style: TextStyle(fontSize: height * 0.028)),
+                style: TextStyle(fontSize: size.height * 0.028)),
             Text('Algo que se debe mostrar',
-                style: TextStyle(fontSize: height * 0.016)),
+                style: TextStyle(fontSize: size.height * 0.016)),
           ],
         )
       ],
@@ -100,7 +98,7 @@ class IconCloseDrawer extends StatelessWidget {
       onTap: () => Scaffold.of(context).closeDrawer(),
       child: Icon(
         Icons.menu_open,
-        size: 60,
+        size: MediaQuery.of(context).size.width * 0.13,
         color: kprimarycolor,
       ),
     );

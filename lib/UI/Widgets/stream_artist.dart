@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../Business_logic/Provaiders/media_provider.dart';
@@ -18,7 +19,8 @@ class StreamArtist extends StatelessWidget {
         stream: playerProvider.player!.currentIndexStream,
         builder: (context, snapshot) {
           return Center(
-            child: Text(
+            child: AutoSizeText(
+              maxLines: 1,
               textAlign: TextAlign.center,
               playerProvider.currentSong!.artist!,
               style: TextStyle(

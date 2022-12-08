@@ -29,23 +29,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.read<MediaProvider>();
-    final height = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: CustomDrawer(height: height),
+      drawer: const CustomDrawer(),
       backgroundColor: kprimarycolor,
       body: SafeArea(
         child: Column(
           children: [
-            CustomAppBar(height: height),
-            MenuNavegacionIconos(
-              height: height,
+            const CustomAppBar(),
+            const MenuNavegacionIconos(
               icon1: Icons.create_new_folder_outlined,
               icon2: Icons.delete,
               icon3: Icons.file_download_outlined,
               icon4: Icons.list_alt,
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.024),
-            AlbumGrid(height: height),
+            SizedBox(height: size.height * 0.024),
+            const AlbumGrid(),
             StreamBuilder<Duration>(
                 stream: playerProvider.player!.positionStream,
                 builder: (context, snapshot) {
@@ -61,8 +60,7 @@ class _HomePageState extends State<HomePage> {
                                       0.964,
                                   child: const MediaControl()));
                         },
-                        child: MiniReproductor(
-                            playerProvider: playerProvider, height: height),
+                        child: MiniReproductor(playerProvider: playerProvider),
                       );
                     }
                   }

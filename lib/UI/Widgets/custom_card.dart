@@ -8,7 +8,6 @@ import 'package:reproductor/Constants/contants.dart';
 import '../Screens/reproducion_list_page.dart';
 
 class CustomCard extends StatelessWidget {
-  final double height;
   final String nameAlbum;
   final int cantSongs;
   final int id;
@@ -20,11 +19,11 @@ class CustomCard extends StatelessWidget {
     required this.cantSongs,
     required this.id,
     this.artistName,
-    required this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final provider = Provider.of<QueryProvider>(context);
     return GestureDetector(
       onTap: () async {
@@ -48,57 +47,60 @@ class CustomCard extends StatelessWidget {
               spreadRadius: 1,
             ),
           ],
-          borderRadius: BorderRadius.circular(height * 0.012),
+          borderRadius: BorderRadius.circular(size.height * 0.012),
           color: kprimarycolor,
         ),
         child: Stack(
           children: [
             Container(
               margin: EdgeInsets.only(
-                  top: height * 0.003,
-                  left: height * 0.003,
-                  right: height * 0.003),
-              height: height * 0.192,
-              width: height * 0.199,
+                  top: size.height * 0.001,
+                  left: size.width * 0.001,
+                  right: size.width * 0.001),
+              height: size.height * 0.192,
+              width: size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(height * 0.012),
+                borderRadius: BorderRadius.circular(size.height * 0.012),
               ),
               child: QueryArtworkWidget(
-                artworkBorder: BorderRadius.circular(height * 0.012),
+                nullArtworkWidget:
+                    Image.asset('assets/foto1.jpg', fit: BoxFit.cover),
+                artworkBorder: BorderRadius.circular(size.height * 0.012),
                 id: id,
                 type: ArtworkType.ALBUM,
+                artworkFit: BoxFit.fill,
               ),
             ),
             Positioned(
-              bottom: height * 0.036,
-              left: height * 0.014,
+              bottom: size.height * 0.036,
+              left: size.height * 0.014,
               child: SizedBox(
-                width: height * 0.18,
+                width: size.width * 0.40,
                 child: Text(
                   nameAlbum,
                   style: TextStyle(
-                      fontSize: height * 0.019,
+                      fontSize: size.height * 0.019,
                       color: Colors.white,
                       overflow: TextOverflow.ellipsis),
                 ),
               ),
             ),
             Positioned(
-                bottom: height * 0.006,
-                left: height * 0.014,
+                bottom: size.height * 0.006,
+                left: size.height * 0.014,
                 child: Text(
                   '${cantSongs.toString()} pistas',
                   style: TextStyle(
-                    fontSize: height * 0.019,
+                    fontSize: size.height * 0.019,
                     color: Colors.white,
                   ),
                 )),
             Positioned(
                 bottom: 0,
-                right: height * 0.007,
+                right: size.height * 0.007,
                 child: Icon(
                   Icons.queue_music_outlined,
-                  size: height * 0.036,
+                  size: size.height * 0.036,
                   color: Colors.white,
                 )),
           ],

@@ -21,36 +21,31 @@ class ReproductionList extends StatefulWidget {
 
 class _ReproductionListState extends State<ReproductionList> {
   @override
-  bool play = false;
-
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.read<MediaProvider>();
-    final height = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       //key: ValueKey<bool>(playerProvider.player!.playing),
 
-      drawer: CustomDrawer(height: height),
+      drawer: const CustomDrawer(),
       backgroundColor: kprimarycolor,
       body: SafeArea(
           child: Stack(
         children: [
           Column(
             children: [
-              CustomAppBar(height: height),
-              MenuNavegacionIconos(
-                height: height,
+              const CustomAppBar(),
+              const MenuNavegacionIconos(
                 icon1: Icons.shuffle,
                 icon2: Icons.repeat,
                 icon3: Icons.add_circle_outline,
                 icon4: Icons.sort_by_alpha,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: size.height * 0.038,
               ),
-              PlayList(
-                height: height,
-              ),
+              const PlayList(),
               StreamBuilder<Duration>(
                   stream: playerProvider.player!.positionStream,
                   builder: (context, snapshot) {
@@ -68,7 +63,6 @@ class _ReproductionListState extends State<ReproductionList> {
                             },
                             child: MiniReproductor(
                               playerProvider: playerProvider,
-                              height: height,
                             ));
                       }
                     }
@@ -84,14 +78,13 @@ class _ReproductionListState extends State<ReproductionList> {
 }
 
 class PlayList extends StatelessWidget {
-  final double height;
   const PlayList({
     Key? key,
-    required this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Expanded(
       child: ListView.separated(
           separatorBuilder: (context, index) => const SizedBox(
@@ -102,7 +95,7 @@ class PlayList extends StatelessWidget {
           itemCount: context.read<QueryProvider>().songsByAlbum.length,
           itemBuilder: (context, index) {
             return PlayListRow(
-              height: height,
+              height: size.height,
               index: index,
             );
           }),

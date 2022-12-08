@@ -2,53 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:reproductor/Constants/contants.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final double height;
-
   const CustomAppBar({
     Key? key,
-    required this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.only(top: height * 0.022),
+      padding: EdgeInsets.only(top: size.height * 0.022),
       child: SizedBox(
-        height: height * 0.096,
-        width: double.infinity,
+        height: size.height * 0.096,
+        width: size.width,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: height * 0.024),
+              padding: EdgeInsets.only(left: size.height * 0.024),
               child: GestureDetector(
                 onTap: () => Scaffold.of(context).openDrawer(),
                 child: Icon(
                   Icons.density_medium,
                   color: kiconocolor,
-                  size: height * 0.050,
+                  size: size.height * 0.050,
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: height * 0.048),
+              padding: EdgeInsets.only(right: size.height * 0.048),
               child: Stack(
                 children: [
                   Container(
-                    height: height * 0.048,
-                    width: height * 0.312,
+                    height: size.height * 0.048,
+                    width: size.width * 0.65,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(height * 0.096),
+                      borderRadius: BorderRadius.circular(size.height * 0.096),
                     ),
                   ),
                   Positioned(
-                      right: height * 0.012,
-                      bottom: height * 0.006,
+                      right: size.height * 0.012,
+                      bottom: size.height * 0.006,
                       child: Icon(
                         Icons.search,
-                        size: height * 0.04,
+                        size: size.height * 0.04,
                       ))
                 ],
               ),

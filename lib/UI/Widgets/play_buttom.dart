@@ -33,8 +33,8 @@ class _PlayButtonState extends State<PlayButton> {
               },
               child: Icon(
                 Icons.pause_circle_outline,
-                color: const Color(0xffE4D1C1),
-                size: widget.height * 0.13,
+                color: const Color(0xffE9D6C2),
+                size: widget.height * 0.11,
               ),
             );
           }
@@ -46,8 +46,8 @@ class _PlayButtonState extends State<PlayButton> {
               },
               child: Icon(
                 Icons.play_circle_outline,
-                color: const Color(0xffE4D1C1),
-                size: widget.height * 0.13,
+                color: const Color(0xffE9D6C2),
+                size: widget.height * 0.11,
               ),
             );
           }

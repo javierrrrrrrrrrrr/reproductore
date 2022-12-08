@@ -24,8 +24,8 @@ class MediaComandsButton extends StatelessWidget {
           },
           child: Icon(
             Icons.replay_10,
-            color: const Color(0xffB2A5AB),
-            size: height * 0.07,
+            color: const Color(0xffB0A5A9),
+            size: height * 0.055,
           ),
         ),
         GestureDetector(
@@ -34,8 +34,8 @@ class MediaComandsButton extends StatelessWidget {
           },
           child: Icon(
             Icons.skip_previous,
-            color: const Color(0xffB2A5AB),
-            size: height * 0.07,
+            color: const Color(0xffB0A5A9),
+            size: height * 0.085,
           ),
         ),
         PlayButton(
@@ -48,8 +48,8 @@ class MediaComandsButton extends StatelessWidget {
           },
           child: Icon(
             Icons.skip_next,
-            color: const Color(0xffB2A5AB),
-            size: height * 0.07,
+            color: const Color(0xffB0A5A9),
+            size: height * 0.085,
           ),
         ),
         GestureDetector(
@@ -59,8 +59,8 @@ class MediaComandsButton extends StatelessWidget {
           },
           child: Icon(
             Icons.forward_10_sharp,
-            color: const Color(0xffB2A5AB),
-            size: height * 0.07,
+            color: const Color(0xffB0A5A9),
+            size: height * 0.055,
           ),
         ),
       ],

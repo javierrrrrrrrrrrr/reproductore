@@ -7,10 +7,8 @@ import '../../Business_logic/Provaiders/media_provider.dart';
 import 'modal_playlist.dart';
 
 class BellowProgressBar extends StatefulWidget {
-  final double height;
   const BellowProgressBar({
     Key? key,
-    required this.height,
   }) : super(key: key);
 
   @override
@@ -20,6 +18,7 @@ class BellowProgressBar extends StatefulWidget {
 class _BellowProgressBarState extends State<BellowProgressBar> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final playerProvider = Provider.of<MediaProvider>(context);
 
     return Row(
@@ -37,17 +36,17 @@ class _BellowProgressBarState extends State<BellowProgressBar> {
             },
             child: playerProvider.player!.shuffleModeEnabled
                 ? Icon(
-                    Icons.shuffle,
+                    Icons.shuffle_on_rounded,
                     color: kiconocolor,
-                    size: widget.height * 0.035,
+                    size: size.height * 0.035,
                   )
                 : Icon(
-                    Icons.arrow_forward,
+                    Icons.shuffle,
                     color: kiconocolor,
-                    size: widget.height * 0.035,
+                    size: size.height * 0.035,
                   )),
         SizedBox(
-          width: widget.height * 0.012,
+          width: size.width * 0.012,
         ),
         GestureDetector(
             onTap: () {
@@ -60,21 +59,21 @@ class _BellowProgressBarState extends State<BellowProgressBar> {
             },
             child: playerProvider.player!.loopMode == LoopMode.off
                 ? Icon(
-                    Icons.linear_scale_outlined,
-                    color: kiconocolor,
-                    size: widget.height * 0.036,
-                  )
-                : Icon(
                     Icons.repeat,
                     color: kiconocolor,
-                    size: widget.height * 0.036,
+                    size: size.height * 0.036,
+                  )
+                : Icon(
+                    Icons.repeat_one,
+                    color: kiconocolor,
+                    size: size.height * 0.036,
                   )),
         const Spacer(),
         GestureDetector(
           child: Icon(
             Icons.queue_music,
             color: kiconocolor,
-            size: widget.height * 0.036,
+            size: size.height * 0.036,
           ),
           onTap: () {
             showModalBottomSheet(

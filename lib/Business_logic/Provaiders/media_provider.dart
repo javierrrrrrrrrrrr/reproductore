@@ -16,13 +16,25 @@ class MediaProvider extends ChangeNotifier {
     songs.map((item) {
       print('Esta es la uri${item.uri} ');
       print('Esta es la data${item.data} ');
+
       audioSource.add(AudioSource.uri(
         tag: MediaItem(
-            artUri: Uri.parse(item.uri!),
-            id: item.id.toString(),
-            title: item.title,
-            album: item.album,
-            artist: item.artist),
+          // final fileDirectory = Uri.directory('data/images', windows: false);
+          //******storage/emulated/0/Adele/19/Folder.jpg */
+          //     content://media/external/audio/media/83356
+          //      /storage/emulated/0/Adele/19/Folder.jpg
+          //file("/storage/emulated/0/Adele/19"),
+
+          //  //127.0.0.1/content://media/external/audio/media/83310
+          artUri: Uri.file('storage/emulated/0/Adele/19/'),
+
+          //
+          // Uri.directory('content://media/external/audio/media/Folder.jpg'),
+          id: item.id.toString(),
+          title: item.title,
+          album: item.album,
+          artist: item.artist,
+        ),
         Uri.parse(item.uri!),
       ));
     }).toList();

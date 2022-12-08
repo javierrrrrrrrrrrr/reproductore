@@ -20,18 +20,19 @@ class _ModalPlayListState extends State<ModalPlayList> {
   Widget build(BuildContext context) {
     final queryProvider = context.read<QueryProvider>();
     final playerProvider = context.read<MediaProvider>();
-    final height = MediaQuery.of(context).size.height;
+
+    final size = MediaQuery.of(context).size;
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
-      width: MediaQuery.of(context).size.width,
+      width: size.width,
       color: const Color.fromRGBO(78, 9, 78, 0.8),
       child: Column(
         children: [
           Container(
             margin: const EdgeInsets.only(top: 20),
-            height: 5,
-            width: 50,
+            height: size.height * 0.005,
+            width: size.width * 0.12,
             decoration: BoxDecoration(
               color: const Color.fromRGBO(255, 255, 255, 0.5),
               borderRadius: BorderRadius.circular(10),
@@ -46,8 +47,8 @@ class _ModalPlayListState extends State<ModalPlayList> {
                   color: Colors.blue,
                   size: 35,
                 ),
-                const SizedBox(
-                  width: 5,
+                SizedBox(
+                  width: size.width * 0.005,
                 ),
                 const Text(
                   'Aleatorio - ',
@@ -65,8 +66,8 @@ class _ModalPlayListState extends State<ModalPlayList> {
                   color: Color.fromRGBO(255, 255, 255, 0.8),
                   size: 35,
                 ),
-                const SizedBox(
-                  width: 15,
+                SizedBox(
+                  width: size.width * 0.02,
                 ),
                 const Icon(
                   Icons.delete,
@@ -111,7 +112,6 @@ class _ModalPlayListState extends State<ModalPlayList> {
                         .updateSongPlaying(queryProvider.songsByAlbum);
                   },
                   child: ListReproduccionView(
-                    height: height,
                     song: queryProvider.songsByAlbum[index],
                     currentindex: index,
                   ),
